@@ -65,7 +65,7 @@ const iconMap = {
   EXPERIMENT: FlaskConical,
 } as const;
 
-const iconVariants = cva("h-4 w-4", {
+const iconColorVariants = cva("", {
   variants: {
     type: {
       TRACE: "text-dark-green",
@@ -93,12 +93,21 @@ const iconVariants = cva("h-4 w-4", {
   },
 });
 
+export function getItemTypeIconColorClassName(value: string) {
+  return iconColorVariants({ type: value as LangfuseItemType });
+}
+
 export function renderFilterIcon(value: string): React.ReactNode {
   const type = value as LangfuseItemType;
   const Icon = iconMap[type];
   if (!Icon) return null;
   return (
-    <Icon className={cn("h-3.5 w-3.5 shrink-0", iconVariants({ type }))} />
+    <Icon
+      className={cn(
+        "h-3.5 w-3.5 shrink-0",
+        getItemTypeIconColorClassName(type),
+      )}
+    />
   );
 }
 
@@ -118,7 +127,7 @@ export function ItemBadge({
   // Modify this line to ensure the icon is properly sized
   const iconClass = cn(
     "shrink-0",
-    iconVariants({ type }),
+    getItemTypeIconColorClassName(type),
     isSmall ? "h-3 w-3" : "h-4 w-4",
     className,
   );
