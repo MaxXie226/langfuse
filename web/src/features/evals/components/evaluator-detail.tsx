@@ -1,4 +1,3 @@
-/* eslint-disable @repo/no-null-render */
 import * as React from "react";
 import { api } from "@/src/utils/api";
 import { useRouter } from "next/router";
@@ -25,10 +24,6 @@ const JobExecutionCounts = ({
   isLoading?: boolean;
   jobExecutionCounts?: EvaluatorExecutionStatusCount[];
 }) => {
-  if (!isLoading && (!jobExecutionCounts || jobExecutionCounts.length === 0)) {
-    return null;
-  }
-
   const counts = generateJobExecutionCounts(jobExecutionCounts);
   return <LevelCountsDisplay counts={counts} isLoading={isLoading} />;
 };
